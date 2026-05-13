@@ -24,19 +24,37 @@ End-to-end marketing intelligence platform processing multi-channel campaign dat
 
 ## Architecture
 
-```
-Campaign Events (Email/Social/Web/Paid)
-         ↓
-    [Bronze Layer]  Raw event ingestion + schema validation
-         ↓
-    [Silver Layer]  Event enrichment + customer deduplication
-         ↓
-    [Gold Layer]    Attribution + customer metrics + campaign KPIs
-         ↓
-    [dbt Models]    Reporting tables + data marts
-         ↓
-    [Dashboards]    Real-time KPI monitoring + performance analysis
-    [ML Models]     Churn prediction + LTV scoring
+```mermaid
+graph TB
+    A["📧 Email Events"] --> B["📱 Social Events"]
+    C["🌐 Web Events"] --> B
+    D["💰 Paid Ads Events"] --> B
+    
+    B --> E["🔄 Stream Processing<br/>Kafka/Airflow"]
+    
+    E --> F["📦 Bronze Layer<br/>Raw Ingestion + Validation"]
+    
+    F --> G["🔧 Silver Layer<br/>Enrichment + Deduplication"]
+    
+    G --> H["✨ Gold Layer<br/>Attribution + Metrics"]
+    
+    H --> I["📊 dbt Models<br/>Reporting Tables"]
+    
+    I --> J["🎯 Real-time Dashboard<br/>Streamlit + Plotly"]
+    I --> K["🤖 ML Models<br/>Churn/LTV Prediction"]
+    
+    K --> L["📈 Churn Scores<br/>30/60/90 days"]
+    K --> M["💵 LTV Forecasts<br/>Confidence Intervals"]
+    
+    J --> N["👥 Store Managers"]
+    L --> N
+    M --> N
+    
+    style F fill:#b3d9ff
+    style G fill:#80bfff
+    style H fill:#4da6ff
+    style J fill:#ff9999
+    style K fill:#99cc99
 ```
 
 ## Key Features
